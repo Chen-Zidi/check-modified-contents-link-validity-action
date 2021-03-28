@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 //for access to the url
-var http = require("http");
+var https = require("https");
 var cheerio = require("cheerio");
 
 // try {
@@ -35,7 +35,7 @@ const diffUrl = github.context.payload.pull_request.diff_url;   // get the diffe
 // console.log("diff:");
 // console.log(diffUrl);
 
-http.get(diffUrl,function(res){
+https.get(diffUrl,function(res){
   var str = "";
   res.on("data",function(chunk){
       str += chunk;
