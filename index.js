@@ -33,7 +33,7 @@ const diffUrl = github.context.payload.pull_request.diff_url;   // get the diffe
 // core.info(`Pull Request Comment Body: "${pullRequestBody}"`);
 // core.info(`Pull Request changes: "${diffUrl}"`);
 // console.log("diff:");
-console.log(diffUrl);
+// console.log(diffUrl);
 
 var HOST_NAME = 'https://github.com';
 var REDIRECTED_HOST_NAME = 'patch-diff.githubusercontent.com';
@@ -51,7 +51,7 @@ var options = {
 
 };
 
-console.log(options.path);
+// console.log(options.path);
 
 https.get(options,function(res){
   var str = "";
@@ -63,3 +63,6 @@ https.get(options,function(res){
       console.log(str);
   })
 })
+
+core.setOutput("content", str);
+
