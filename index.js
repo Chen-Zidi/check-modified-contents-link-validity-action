@@ -1,6 +1,10 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+//for access to the url
+var http = require("http");
+var cheerio = require("cheerio");
+
 // try {
 //   // `who-to-greet` input defined in action metadata file
 //   const nameToGreet = core.getInput('who-to-greet');
@@ -26,7 +30,22 @@ const payload = github.context.payload; // get the comment body
 const pullRequestBody = github.context.payload.pull_request.body; // get the comment body
 const diffUrl = github.context.payload.pull_request.diff_url;   // get the difference 
 
-core.info(`Pull Request Comment Body: "${pullRequestBody}"`);
-core.info(`Pull Request changes: "${diffUrl}"`);
-console.log("diff:");
-console.log(diffUrl);
+// core.info(`Pull Request Comment Body: "${pullRequestBody}"`);
+// core.info(`Pull Request changes: "${diffUrl}"`);
+// console.log("diff:");
+// console.log(diffUrl);
+
+http.get(diffUrl,function(res){
+  var str = "";
+  res.on("data",function(chunk){
+      str += chunk;
+  })
+  res.on("end",function(){
+      var data = getData(str);
+      console.log(data);
+  })
+})
+
+function getData(str){
+    return str;
+}
