@@ -14,6 +14,8 @@ const github = require('@actions/github');
 //   core.setFailed(error.message);
 // }
 
+  const { eventName } = github.context;
+  core.info(`Event name: ${eventName}`);
 
 if (eventName !== 'pull_request_target') {
   core.setFailed(`Invalid event: ${eventName}, it should be use on pull_request_target`);
