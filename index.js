@@ -33,7 +33,7 @@ const diffUrl = github.context.payload.pull_request.diff_url;   // get the diffe
 // core.info(`Pull Request Comment Body: "${pullRequestBody}"`);
 // core.info(`Pull Request changes: "${diffUrl}"`);
 // console.log("diff:");
-// console.log(diffUrl);
+console.log(diffUrl);
 
 var HOST_NAME = 'patch-diff.githubusercontent.com';
 var options = { 
