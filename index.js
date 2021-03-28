@@ -35,9 +35,10 @@ const diffUrl = github.context.payload.pull_request.diff_url;   // get the diffe
 // console.log("diff:");
 console.log(diffUrl);
 
-var HOST_NAME = 'patch-diff.githubusercontent.com';
+var HOST_NAME = 'https://github.com';
+var REDIRECTED_HOST_NAME = 'patch-diff.githubusercontent.com';
 var options = { 
-    host: HOST_NAME,
+    host: REDIRECTED_HOST_NAME,
     path: diffUrl.substr(HOST_NAME.length),   // the remaining file path under the host
     headers: {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
@@ -49,6 +50,8 @@ var options = {
       method: 'GET',
 
 };
+
+console.log(options.path);
 
 https.get(options,function(res){
   var str = "";
