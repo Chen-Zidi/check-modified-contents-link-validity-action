@@ -3,8 +3,8 @@ description: 'get modified content'
 inputs:
   token:
     description: "Token used to close a pull request if there is invalid link"
-      required: false
-      default: ${{ github.token }}
+    required: false
+    default: ${{ github.token }}
 outputs:
   validity: 
     description: 'The validity of the links in the modified content'
