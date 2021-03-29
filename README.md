@@ -17,5 +17,5 @@ The links in the modified content are valid or not.
 ## Example usage
 
 ```yaml
-uses: actions/check-modified-contents-link-validity-action@main
+uses: Chen-Zidi/check-modified-contents-link-validity-action@main
 ```
