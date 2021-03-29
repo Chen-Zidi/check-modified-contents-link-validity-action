@@ -70,20 +70,33 @@ https.get(options,function(res){
 })
 
 // HERE ADD THE VALIDITY CHECK
-function httpString(strs){
+function httpString(s){
     // only parse the urls in the ADDED content of the pull request
     // namely the string which has '+' at the head
     // and only urls with a http:// or https:// as a prefix
-    var reg = /\+(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|[\u4e00-\u9fa5])+)/g;
-    strs = strs.match(reg);
-    if(strs){
-        for(var i=0; i< strs.length; i++){
-            strs[i] = strs[i].substr(1); // delete the '+' at the head of the string
+    arr = s.trim().split('\n');
+    console.log(arr);
+    var reg1 = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|[\u4e00-\u9fa5])+)/g;
+    allStrs = new Array();
+    for(var i=0; i<arr.length; i++){    // for each row
+        if(arr[i].charAt(0) == "+"){    // one row start with + is the added ones
+            lineStrs = arr[i].match(reg1);
+            for(var j=0; j<lineStrs.length; j++){
+                allStrs.append(lineStrs[j]);
+            }        
         }
-    }
 
-    console.log(strs);
-    return(strs);
+    }
+    
+    // strs = s.match(reg1);
+    // if(strs){
+    //     for(var i=0; i< strs.length; i++){
+    //         strs[i] = strs[i].substr(1); // delete the '+' at the head of the string
+    //     }
+    // }
+
+    console.log(allStrs);
+    return(allStrs);
 }
 
 function checkValid(urls){
