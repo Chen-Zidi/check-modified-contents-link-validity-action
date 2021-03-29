@@ -139,7 +139,7 @@ async function checkValidUrl(url){
 
 }
 
-aync function close(client, context){
+async function close(client, context){
             // *Optional*. Post an issue comment just before closing a pull request.
         const body = "inactive pr";
         if (body.length > 0) {
