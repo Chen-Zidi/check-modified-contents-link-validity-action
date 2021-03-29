@@ -83,7 +83,7 @@ function httpString(s){
             lineStrs = arr[i].match(reg1);
             if(lineStrs){
                 for(var j=0; j<lineStrs.length; j++){
-                    allStrs.append(lineStrs[j]);
+                    allStrs.push(lineStrs[j]);
                 }         
             }
                
