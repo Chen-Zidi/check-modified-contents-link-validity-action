@@ -117,7 +117,27 @@ async function checkValidUrl(url){
         const client = new github.GitHub(token);
         core.info("Updating the state of a pull request to closed");
       
-        console.log("issue",client.log.issues);
+        ///////////////////
+          // *Optional*. Post an issue comment just before closing a pull request.
+        const body = "inactive pr";
+        if (body.length > 0) {
+          core.info("Creating a comment");
+          await client.issues.createComment({
+            ...context.repo,
+            issue_number: context.issue.number,
+            body
+          });
+        }
+
+        core.info("Updating the state of a pull request to closed");
+        await client.pulls.update({
+          ...context.repo,
+          pull_number: context.issue.number,
+          state: "closed"
+        });
+
+        core.info(`Closed a pull request ${context.issue.number}`);
+      ///////////////////////////////////
       
         // create comment on PR
 //         const new_comment = client.issues.createComment({
