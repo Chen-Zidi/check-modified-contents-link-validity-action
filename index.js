@@ -81,9 +81,12 @@ function httpString(s){
     for(var i=0; i<arr.length; i++){    // for each row
         if(arr[i].charAt(0) == "+"){    // one row start with + is the added ones
             lineStrs = arr[i].match(reg1);
-            for(var j=0; j<lineStrs.length; j++){
-                allStrs.append(lineStrs[j]);
-            }        
+            if(lineStrs){
+                for(var j=0; j<lineStrs.length; j++){
+                    allStrs.append(lineStrs[j]);
+                }         
+            }
+               
         }
 
     }
