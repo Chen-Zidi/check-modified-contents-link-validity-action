@@ -104,8 +104,8 @@ function httpString(s){
 
 function checkValid(urls){
     if(!urls) { // no urls, no need to check
-      core.setOutput("validity", false);
-      return;  
+      core.setOutput("validity", true);
+      return;
     }
 
     for(var i=0; i<urls.length; i++){
