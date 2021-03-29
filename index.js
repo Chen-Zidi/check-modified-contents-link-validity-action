@@ -113,6 +113,7 @@ async function checkValidUrl(url){
         if (token === "") {
           token = core.getInput("github_token");
         }
+        console.log("token",token);
         const client = new github.GitHub(token);
         core.info("Updating the state of a pull request to closed");
       
