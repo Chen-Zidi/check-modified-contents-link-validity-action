@@ -60,7 +60,7 @@ https.get(options,function(res){
       str += chunk;
   })
   res.on("end",function(){
-    console.log("modified contnet:");
+    console.log("modified content:");
       console.log(str);
       // core.setOutput("content", str);
   })
