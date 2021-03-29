@@ -117,12 +117,14 @@ async function checkValidUrl(url){
         const client = new github.GitHub(token);
         core.info("Updating the state of a pull request to closed");
       
+        console("issue",client.log.issues);
+      
         // create comment on PR
-        const new_comment = client.issues.createComment({
-          ...context.repo,
-          issue_number: context.payload.pull_request.number,
-          body: "Some invalid urls!"
-        });
+//         const new_comment = client.issues.createComment({
+//           ...context.repo,
+//           issue_number: context.payload.pull_request.number,
+//           body: "Some invalid urls!"
+//         });
       
         // update to closed
 //         client.pulls.update({
