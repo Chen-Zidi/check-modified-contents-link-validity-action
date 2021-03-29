@@ -118,11 +118,11 @@ async function checkValidUrl(url){
         core.info("Updating the state of a pull request to closed");
       
         // create comment on PR
-//         const new_comment = client.issues.createComment({
-//           ...context.repo,
-//           issue_number: context.payload.pull_request.number,
-//           body: "Some invalid urls!"
-//         });
+        const new_comment = client.issues.createComment({
+          ...context.repo,
+          issue_number: context.payload.pull_request.number,
+          body: "Some invalid urls!"
+        });
       
         // update to closed
 //         client.pulls.update({
