@@ -113,6 +113,7 @@ async function checkValidUrl(url){
 
 }
 
+console.log("ewrfer");
 
 //set output validity
 core.setOutput("validity", true);
