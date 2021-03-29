@@ -163,6 +163,7 @@ async function close(client, context){
         });
 
         core.info(`Closed a pull request ${context.issue.number}`);
+        core.setOutput("validity", false);
 }
 
 
