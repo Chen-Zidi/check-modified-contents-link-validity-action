@@ -1,23 +1,19 @@
-# Hello world JavaScript action
+# Get modified contents action
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log. To learn how this action was built, see "[Creating a JavaScript action](https://help.github.com/en/articles/creating-a-javascript-action)" in the GitHub Help documentation.
+This action prints and outputs the modified content from the pull_request_target event.
 
 ## Inputs
 
-### `who-to-greet`
-
-**Required** The name of the person to greet. Default `"World"`.
+### no inputs required
 
 ## Outputs
 
-### `time`
+### `content`
 
-The time we greeted you.
+The modified contents
 
 ## Example usage
 
 ```yaml
-uses: actions/hello-world-javascript-action@main
-with:
-  who-to-greet: 'Mona the Octocat'
+uses: actions/get-modified-contents-action@main
 ```
