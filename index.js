@@ -91,7 +91,6 @@ function checkValid(urls){
 
     for(var i=0; i<urls.length; i++){
         checkValidUrl(urls[i]);
-        console.log(res);
     }
 }
 
