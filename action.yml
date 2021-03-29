@@ -1,10 +1,9 @@
 name: 'check links in the modified content validity'
 description: 'get modified content'
-# inputs:
-#   who-to-greet:  # id of input
-#     description: 'Who to greet'
-#     required: true
-#     default: 'World'
+inputs:
+  token:  
+    description: 'github user token'
+    required: true
 outputs:
   validity: 
     description: 'The validity of the links in the modified content'

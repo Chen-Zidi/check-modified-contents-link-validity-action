@@ -5,6 +5,7 @@ request should be closed.
 
 
 ## Inputs
+### `token` github user token
 
 ### no inputs required
 
