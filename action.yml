@@ -1,9 +1,10 @@
 name: 'check links in the modified content validity'
 description: 'get modified content'
 inputs:
-  token:  
-    description: 'github user token'
-    required: true
+  token:
+    description: "Token used to close a pull request if there is invalid link"
+      required: false
+      default: ${{ github.token }}
 outputs:
   validity: 
     description: 'The validity of the links in the modified content'

@@ -102,23 +102,26 @@ async function checkValidUrl(url){
 
     await getPromise(url).then((value)=>{
         console.log(url + "\nSuccess\n");
+        //set output validity
+        core.setOutput("validity", true);
     }).catch((err)=>{
         console.log(url);
         console.log(err.toString(),"\n");
 
         // get the PR status
         // if not close then set close with a msg about that error?
-        const context = github.context;
-//         let token = process.env["GITHUB_TOKEN"] || "";
-//         if (token === "") {
-        token = core.getInput("token");
-//         }
+        const context_git = github.context;
+        let token = process.env["GITHUB_TOKEN"] || "";
+        if (token === "") {
+          token = core.getInput("token");
+        }
+
         console.log("token",token);
         const client = new github.GitHub(token);
         core.info("Updating the state of a pull request to closed");
       
         ///////////////////
-      close(client,context);
+      close(client, context_git);
       ///////////////////////////////////
       
         // create comment on PR
@@ -140,8 +143,9 @@ async function checkValidUrl(url){
 }
 
 async function close(client, context){
-            // *Optional*. Post an issue comment just before closing a pull request.
+           
         const body = "inactive pr";
+        console.log("try to close the pull request");
         if (body.length > 0) {
           core.info("Creating a comment");
           await client.issues.createComment({
@@ -162,5 +166,4 @@ async function close(client, context){
 }
 
 
-//set output validity
-core.setOutput("validity", true);
+
