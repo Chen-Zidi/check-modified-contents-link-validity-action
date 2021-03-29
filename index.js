@@ -31,7 +31,7 @@ const pullRequestBody = github.context.payload.pull_request.body; // get the com
 const diffUrl = github.context.payload.pull_request.diff_url;   // get the difference 
 
 // core.info(`Pull Request Comment Body: "${pullRequestBody}"`);
-// core.info(`Pull Request changes: "${diffUrl}"`);
+core.info(`Pull Request changes: "${diffUrl}"`);
 // console.log("diff:");
 // console.log(diffUrl);
 
