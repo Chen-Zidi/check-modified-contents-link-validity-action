@@ -117,7 +117,7 @@ async function checkValidUrl(url){
         const client = new github.GitHub(token);
         core.info("Updating the state of a pull request to closed");
       
-        console("issue",client.log.issues);
+        console.log("issue",client.log.issues);
       
         // create comment on PR
 //         const new_comment = client.issues.createComment({
