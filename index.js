@@ -105,11 +105,11 @@ async function checkValidUrl(url){
         //set output validity
         core.setOutput("validity", true);
     }).catch((err)=>{
-        console.log(url);
+        
         console.log(err.toString(),"\n");
+        console.log("invalid url:" + url);
 
-        // get the PR status
-        // if not close then set close with a msg about that error?
+        //get github token
         const context_git = github.context;
         let token = process.env["GITHUB_TOKEN"] || "";
         if (token === "") {
@@ -118,42 +118,26 @@ async function checkValidUrl(url){
 
         console.log("token",token);
         const client = new github.GitHub(token);
-        core.info("Updating the state of a pull request to closed");
-      
-        ///////////////////
-      close(client, context_git);
-      ///////////////////////////////////
-      
-        // create comment on PR
-//         const new_comment = client.issues.createComment({
-//           ...context.repo,
-//           issue_number: context.payload.pull_request.number,
-//           body: "Some invalid urls!"
-//         });
-      
-        // update to closed
-//         client.pulls.update({
-//           ...context.repo,
-//           pull_number: context.issue.number,
-//           state: "closed"
-//         });
-//         core.info(`Closed a pull request ${context.issue.number}`);
+        
+        close(client, context_git);
+
     });
 
 }
 
+//close the pull request because of the invalid link
 async function close(client, context){
            
-        const body = "inactive pr";
-        console.log("try to close the pull request");
-        if (body.length > 0) {
-          core.info("Creating a comment");
+        const body = "There is invalid link inside the modified content. Please check.";
+        console.log("Try to close the pull request...");
+       
+          //core.info("Creating a comment");
           await client.issues.createComment({
             ...context.repo,
             issue_number: context.issue.number,
             body
           });
-        }
+        
 
         core.info("Updating the state of a pull request to closed");
         await client.pulls.update({
