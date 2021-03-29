@@ -1,4 +1,4 @@
-name: 'get modified content'
+name: 'check links in the modified content validity'
 description: 'get modified content'
 # inputs:
 #   who-to-greet:  # id of input
@@ -6,8 +6,8 @@ description: 'get modified content'
 #     required: true
 #     default: 'World'
 outputs:
-  content: # id of output
-    description: 'The content of the modified information'
+  validity: 
+    description: 'The validity of the links in the modified content'
 runs:
   using: 'node12'
   main: 'index.js'

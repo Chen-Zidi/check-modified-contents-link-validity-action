@@ -1,6 +1,8 @@
-# Get modified contents action
+# Check Modified Content Links Validity Action
 
-This action prints and outputs the modified content from the pull_request_target event.
+This action should be triggered by pull_request_target event. The action checks the links in the modified content are valid or not. If there are invalid links, the output should be false, and the pull
+request should be closed.
+
 
 ## Inputs
 
@@ -8,12 +10,12 @@ This action prints and outputs the modified content from the pull_request_target
 
 ## Outputs
 
-### `content`
+### `validity`
 
-The modified contents
+The links in the modified content are valid or not.
 
 ## Example usage
 
 ```yaml
-uses: actions/get-modified-contents-action@main
+uses: actions/check-modified-contents-link-validity-action@main
 ```

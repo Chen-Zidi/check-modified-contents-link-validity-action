@@ -1,5 +1,5 @@
 {
-  "name": "get-modified-contents-action",
+  "name": "check-modified-contents-link-validity-action",
   "version": "1.0.0",
   "description": "This action output the modified content in the pull request",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/get-modified-contents-action.git"
+    "url": "git+https://github.com/actions/check-modified-contents-link-validity-action.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/actions/get-modified-contents-action/issues"
+    "url": "https://github.com/actions/check-modified-contents-link-validity-action/issues"
   },
-  "homepage": "https://github.com/actions/get-modified-contents-action#readme",
+  "homepage": "https://github.com/actions/check-modified-contents-link-validity-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^1.1.0",

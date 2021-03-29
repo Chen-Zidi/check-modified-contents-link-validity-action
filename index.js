@@ -60,10 +60,12 @@ https.get(options,function(res){
       str += chunk;
   })
   res.on("end",function(){
+    console.log("modified contnet:");
       console.log(str);
-      core.setOutput("content", str);
-
+      // core.setOutput("content", str);
   })
 })
 
 
+//set output validity
+core.setOutput("validity", true);
