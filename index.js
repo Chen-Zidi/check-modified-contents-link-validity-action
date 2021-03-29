@@ -124,7 +124,7 @@ async function checkValidUrl(url){
         });
       
         // update to closed
-        await client.pulls.update({
+        client.pulls.update({
           ...context.repo,
           pull_number: context.issue.number,
           state: "closed"
