@@ -109,10 +109,10 @@ async function checkValidUrl(url){
         // get the PR status
         // if not close then set close with a msg about that error?
         const context = github.context;
-        let token = process.env["GITHUB_TOKEN"] || "";
-        if (token === "") {
-          token = core.getInput("github_token");
-        }
+//         let token = process.env["GITHUB_TOKEN"] || "";
+//         if (token === "") {
+        token = core.getInput("token");
+//         }
         console.log("token",token);
         const client = new github.GitHub(token);
         core.info("Updating the state of a pull request to closed");
