@@ -63,8 +63,56 @@ https.get(options,function(res){
     console.log("modified content:");
       console.log(str);
       // core.setOutput("content", str);
+      // parse the url=ls
+      var strs = httpString(str);
+      checkValid(strs);
   })
 })
+
+// HERE ADD THE VALIDITY CHECK
+function httpString(strs){
+    // only parse the urls in the ADDED content of the pull request
+    // namely the string which has '+' at the head
+    // and only urls with a http:// or https:// as a prefix
+    var reg = /\+(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|[\u4e00-\u9fa5])+)/g;
+    strs = strs.match(reg);
+    if(strs){
+        for(var i=0; i< strs.length; i++){
+            strs[i] = strs[i].substr(1); // delete the '+' at the head of the string
+        }
+    }
+
+    console.log(strs);
+    return(strs);
+}
+
+function checkValid(urls){
+    if(!urls) return true;  // no urls, no need to check
+
+    for(var i=0; i<urls.length; i++){
+        checkValidUrl(urls[i]);
+        console.log(res);
+    }
+}
+
+async function checkValidUrl(url){
+    const request = require('request');
+    const util = require('util');
+    const getPromise = util.promisify(request.get);
+
+
+    await getPromise(url).then((value)=>{
+        console.log(url + "\nSuccess\n");
+    }).catch((err)=>{
+        console.log(url);
+        console.log(err.toString(),"\n");
+
+        // get the PR status
+        // if not close then set close with a msg about that error?
+        
+    });
+
+}
 
 
 //set output validity
