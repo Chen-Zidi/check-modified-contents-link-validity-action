@@ -3,27 +3,12 @@ const github = require('@actions/github');
 
 //for access to the url
 var https = require("https");
-var cheerio = require("cheerio");
 
-// try {
-//   // `who-to-greet` input defined in action metadata file
-//   const nameToGreet = core.getInput('who-to-greet');
-//   console.log(`Hello ${nameToGreet}!`);
-//   const time = (new Date()).toTimeString();
-//   core.setOutput("time", time);
-//   // Get the JSON webhook payload for the event that triggered the workflow
-//   const payload = JSON.stringify(github.context.payload, undefined, 2)
-//   console.log(`The event payload: ${payload}`);
-// } catch (error) {
-//   core.setFailed(error.message);
-// }
-
-  const { eventName } = github.context;
-  core.info(`Event name: ${eventName}`);
+const { eventName } = github.context;
+core.info(`Event name: ${eventName}`);
 
 if (eventName !== 'pull_request_target') {
   core.setFailed(`Invalid event: ${eventName}, it should be use on pull_request_target`);
-  return;
 }
 
 const payload = github.context.payload; // get the comment body
@@ -31,9 +16,7 @@ const pullRequestBody = github.context.payload.pull_request.body; // get the com
 const diffUrl = github.context.payload.pull_request.diff_url;   // get the difference 
 
 // core.info(`Pull Request Comment Body: "${pullRequestBody}"`);
-core.info(`Pull Request changes: "${diffUrl}"`);
-// console.log("diff:");
-// console.log(diffUrl);
+core.info(`Pull Request changes can be seen on: "${diffUrl}"`);
 
 var HOST_NAME = 'https://github.com';
 var REDIRECTED_HOST_NAME = 'patch-diff.githubusercontent.com';
@@ -51,8 +34,6 @@ var options = {
 
 };
 
-// console.log(options.path);
-
 https.get(options,function(res){
   var str = "";
   console.log('Response is '+res.statusCode);
@@ -60,8 +41,8 @@ https.get(options,function(res){
       str += chunk;
   })
   res.on("end",function(){
-    console.log("modified content:");
-      console.log(str);
+      // console.log("modified content:");
+      // console.log(str);
       // core.setOutput("content", str);
       // parse the url=ls
       var strs = httpString(str);
@@ -75,30 +56,22 @@ function httpString(s){
     // namely the string which has '+' at the head
     // and only urls with a http:// or https:// as a prefix
     arr = s.trim().split('\n');
-    console.log(arr);
+    core.info(`Pull Request changes in array: \n "${arr}" \n`);
     var reg1 = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|[\u4e00-\u9fa5])+)/g;
     allStrs = new Array();
-    for(var i=0; i<arr.length; i++){    // for each row
+    // get the added urls
+    for(var i=0; i<arr.length; i++){    
         if(arr[i].charAt(0) == "+"){    // one row start with + is the added ones
             lineStrs = arr[i].match(reg1);
             if(lineStrs){
                 for(var j=0; j<lineStrs.length; j++){
                     allStrs.push(lineStrs[j]);
                 }         
-            }
-               
+            }      
         }
-
     }
-    
-    // strs = s.match(reg1);
-    // if(strs){
-    //     for(var i=0; i< strs.length; i++){
-    //         strs[i] = strs[i].substr(1); // delete the '+' at the head of the string
-    //     }
-    // }
-
-    console.log(allStrs);
+  
+    core.info(`The added urls: \n "${allStrs}" \n`);
     return(allStrs);
 }
 
@@ -118,15 +91,13 @@ async function checkValidUrl(url){
     const util = require('util');
     const getPromise = util.promisify(request.get);
 
-
+    console.log("try to get: " + url + "...");
     await getPromise(url).then((value)=>{
         console.log(url + "\nSuccess\n");
         //set output validity
         core.setOutput("validity", true);
     }).catch((err)=>{
-        
-        console.log(err.toString(),"\n");
-        console.log("invalid url:" + url);
+        console.log(err.toString());
 
         //get github token
         const context_git = github.context;
@@ -135,7 +106,6 @@ async function checkValidUrl(url){
           token = core.getInput("token");
         }
 
-        console.log("token",token);
         const client = new github.GitHub(token);
         
         close(client, context_git, url);
@@ -146,25 +116,22 @@ async function checkValidUrl(url){
 
 //close the pull request because of the invalid link
 async function close(client, context, url){
-           
         const body = "There is invalid link inside the modified content: "+ url + " ,Please check.";
-        core.info("Try to close the pull request...");
+        core.info("Try to create a comment and close the pull request...\n");
        
-        core.info("Creating a comment...");
         await client.issues.createComment({
           ...context.repo,
           issue_number: context.issue.number,
           body
         });
         
-        core.info("Updating the state of a pull request to be closed");
         await client.pulls.update({
           ...context.repo,
           pull_number: context.issue.number,
           state: "closed"
         });
 
-        core.info(`Closed a pull request ${context.issue.number}`);
+        core.info(`Closed pull request ${context.issue.number} successfully`);
         core.setOutput("validity", false);
 }
 
