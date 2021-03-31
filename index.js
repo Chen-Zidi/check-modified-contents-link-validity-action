@@ -95,10 +95,11 @@ async function checkValidUrl(url){
 
     console.log("try to get: " + url + "...");
     await getPromise(url).then((value)=>{
-        console.log(url + "\nSuccess\n");
+        console.log(url + "\nValid\n");
         //set output validity
         core.setOutput("validity", true);
     }).catch((err)=>{
+        console.log(url);
         console.log(err.toString());
 
         //get github token
