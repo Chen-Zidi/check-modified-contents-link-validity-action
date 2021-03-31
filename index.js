@@ -138,27 +138,26 @@ async function checkValidUrl(url){
         console.log("token",token);
         const client = new github.GitHub(token);
         
-        close(client, context_git);
+        close(client, context_git, url);
 
     });
 
 }
 
 //close the pull request because of the invalid link
-async function close(client, context){
+async function close(client, context, url){
            
-        const body = "There is invalid link inside the modified content. Please check.";
-        console.log("Try to close the pull request...");
+        const body = "There is invalid link inside the modified content: "+ url + " ,Please check.";
+        core.info("Try to close the pull request...");
        
-          //core.info("Creating a comment");
-          await client.issues.createComment({
-            ...context.repo,
-            issue_number: context.issue.number,
-            body
-          });
+        core.info("Creating a comment...");
+        await client.issues.createComment({
+          ...context.repo,
+          issue_number: context.issue.number,
+          body
+        });
         
-
-        core.info("Updating the state of a pull request to closed");
+        core.info("Updating the state of a pull request to be closed");
         await client.pulls.update({
           ...context.repo,
           pull_number: context.issue.number,
