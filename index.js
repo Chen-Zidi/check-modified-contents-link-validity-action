@@ -56,7 +56,7 @@ function httpString(s){
     // namely the string which has '+' at the head
     // and only urls with a http:// or https:// as a prefix
     arr = s.trim().split('\n');
-    core.info(`Pull Request changes in array: \n "${arr}" \n`);
+    console.log("Pull Request modified info: \n" + arr + "\n");
     var reg1 = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|[\u4e00-\u9fa5])+)/g;
     allStrs = new Array();
     // get the added urls
@@ -71,7 +71,7 @@ function httpString(s){
         }
     }
   
-    core.info(`The added urls: \n "${allStrs}" \n`);
+    console.log("The added urls:\n"+allStrs+"\n");
     return(allStrs);
 }
 
