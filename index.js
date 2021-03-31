@@ -36,7 +36,7 @@ var options = {
 
 https.get(options,function(res){
   var str = "";
-  console.log('Response is '+res.statusCode);
+  // console.log('Response is '+res.statusCode);
   res.on("data",function(chunk){
       str += chunk;
   })
@@ -56,7 +56,8 @@ function httpString(s){
     // namely the string which has '+' at the head
     // and only urls with a http:// or https:// as a prefix
     arr = s.trim().split('\n');
-    console.log("Pull Request modified info: \n" + arr + "\n");
+    console.log("Pull Request modified info:");
+    console.log(arr);
     var reg1 = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-|[\u4e00-\u9fa5])+)/g;
     allStrs = new Array();
     // get the added urls
@@ -71,7 +72,8 @@ function httpString(s){
         }
     }
   
-    console.log("The added urls:\n"+allStrs+"\n");
+    console.log("The added urls:");
+    console.log(allStrs);
     return(allStrs);
 }
 
@@ -117,6 +119,7 @@ async function checkValidUrl(url){
 //close the pull request because of the invalid link
 async function close(client, context, url){
         const body = "There is invalid link inside the modified content: "+ url + " ,Please check.";
+        core.info(body);
         core.info("Try to create a comment and close the pull request...\n");
        
         await client.issues.createComment({
