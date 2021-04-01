@@ -18,4 +18,11 @@ The links in the modified content are valid or not.
 ```yaml
 uses: Chen-Zidi/check-modified-contents-link-validity-action@main
 ```
-
+You can print the output "validity" like this:
+```yaml
+- name: check validity
+      uses: Chen-Zidi/check-modified-contents-link-validity-action@main
+      id: check-validity
+- name: print validity result
+      run: echo "validity - ${{ steps.check-validity.outputs.validity}}"
+```
