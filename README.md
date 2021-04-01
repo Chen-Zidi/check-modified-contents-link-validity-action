@@ -1,11 +1,9 @@
 # Check Modified Content Links Validity Action
-
-This action should be triggered by pull_request_target event. The action checks the links in the modified content are valid or not. If there are invalid links, the output should be false, and the pull
-request should be closed.
+The action checks the validity of the links in the modified content. If there are invalid links, the output of the action should be false, and the pull
+request should be closed. The invalid links are commented in the closed pull request. This action should be triggered by pull_request_target event. We only check the links which start with http and https.
 
 
 ## Inputs
-### `token` github user token
 
 ### no inputs required
 
@@ -20,3 +18,4 @@ The links in the modified content are valid or not.
 ```yaml
 uses: Chen-Zidi/check-modified-contents-link-validity-action@main
 ```
+
