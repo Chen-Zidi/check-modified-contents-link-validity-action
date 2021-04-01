@@ -1,6 +1,5 @@
 # Check Modified Content Links Validity Action
-The action checks the validity of the links in the modified content. If there are invalid links, the output of the action should be false, and the pull
-request should be closed. The invalid links are commented in the closed pull request. This action should be triggered by pull_request_target event. We only check the links which start with http and https.
+This GitHub action checks the validity of the links in the modified content for a pull request. If there are invalid links in the added content, the output of the GitHub action should be false, and the pull request will be closed. Meanwhile, the invalid links are commented in the closed pull request so contributers can be notified about the invalid links. This action should be triggered by pull_request_target event, which means it can serve as an early-check before manual merging. Notice that we only check the links which start with **http://** and **https://**.
 
 
 ## Inputs
