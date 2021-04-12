@@ -1,5 +1,5 @@
 name: 'check links in the modified content validity'
-description: 'get modified content'
+description: 'get modified content and check links validity'
 inputs:
   token:
     description: "Token used to close a pull request if there is invalid link"
